@@ -9,18 +9,21 @@ dotenv.config();
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
-const foldersPath = path.join(__dirname, 'commands');
+const foldersPath = path.join(__dirname, '..', 'commands');
+
 const commandFolders = fs.readdirSync(foldersPath);
+console.log(commandFolders);
 const files = commandFolders.filter((file) => fs.statSync(path.join(foldersPath, file)).isFile());
-
+console.log(files);
+//
 const commands = [];
-
+//
 for (const file of files) {
-  const filePath = path.join(__dirname, 'commands', file);
+  const filePath = path.join(__dirname, '..', 'commands', file);
   const command = (await import(filePath)).default as SlashCommand;
   commands.push(command.data.toJSON());
 }
-
+//
 const rest = new REST().setToken(process.env.DISCORD_TOKEN as string);
 
 try {

@@ -16,6 +16,12 @@ client.once(Events.ClientReady, (readyClient) => {
         type: ActivityType.Playing,
       },
     ],
+    status: 'dnd',
+
+  });
+
+  readyClient.guilds.cache.forEach((guild) => {
+    console.info(`Logged in ${guild.name}`);
   });
 });
 
